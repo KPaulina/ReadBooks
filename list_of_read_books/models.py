@@ -6,7 +6,7 @@ from django.conf import settings
 class UserListBooks(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
-    review = models.TimeField(null=True)
+    review = models.TextField(null=True, blank=True)
     category = models.CharField(max_length=50) #read #reading #want to read
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
