@@ -11,15 +11,8 @@ class UserInline(admin.TabularInline):
     model = User
 
 
-class UserListBooksAuthorsInline(admin.StackedInline):
-    model = ListAuthors
-    extra = 0
-    # fields = ('name', 'surname')
-
-
 class UserListBooksAdmin(admin.ModelAdmin):
-    inlines = [UserListBooksAuthorsInline]
-    list_display = ('title', 'category')
+    list_display = ('title', 'status')
     readonly_fields = ('timestamp', 'updated')
     raw_id_fields = ['user']
 
