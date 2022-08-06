@@ -11,6 +11,9 @@ class ListAuthors(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    def get_absolute_url(self):
+        return '/library/authors'
+
 
 class UserListBooks(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -21,5 +24,7 @@ class UserListBooks(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    def get_absolute_url(self):
+        return self.title.get_absolute_url()
 
 
