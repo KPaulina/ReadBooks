@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>{{ book.title }}</h1><small><a href="{{ book.get_edit_url }}">Edit</a></small>
+    <p>{{ book.description }}</p>
+    <p>{{ book.status }}</p>
+
+{% endblock %}

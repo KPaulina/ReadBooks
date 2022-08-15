@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'form.css' %}">
+{% block content %}
+    {% if message %}
+        {{ message }}
+    {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <h3>Autor</h3>
+            {% if author_form %}
+                {{ author_form.as_p }}
+            {% endif %}
+        <button style="margin-top: 10px" type="submit">Save</button>
+        </form>
+
+
+{% endblock %}
