@@ -1,0 +1,6 @@
+<h3> Do yoy want to delete {{ userlistbooks.title }}?</h3>
+
+<form method="POST">
+    {%  csrf_token %}
+    <input type="submit" value="Confirm delete">
+</form>

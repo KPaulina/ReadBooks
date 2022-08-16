@@ -5,7 +5,10 @@
 <a href="{% url "list_of_read_books:add" %}">Add book</a>
     <ul>
         {% for book in book_list %}
-            <li><a href='{{ book.get_absolute_url }}'>{{ book.title }}</a></li>
+            <li><a href='book_detail/{{ book.id }}'>{{ book.title }}</a><br><a href="edit_book/{{ book.id }}">Edit</a> </li>
+            <ul>
+                <a href="book_delete/{{ book.id }}">Delete</a>
+            </ul>
         {% endfor %}
     </ul>
 

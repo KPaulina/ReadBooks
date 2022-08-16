@@ -3,7 +3,7 @@ from .models import UserListBooks, ListAuthors
 from django.urls import reverse_lazy
 from .forms import BooksAuthorsForm, BooksForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -14,22 +14,9 @@ class BookListView(LoginRequiredMixin, ListView):
     context_object_name = 'book_list'
 
 
-@login_required
-def books_list_view(request, id=None):
-    qs = UserListBooks.objects.filter(user=request.user)
-    context = {
-        "book_list": qs
-    }
-    return render(request, "books/list.html", context)
-
-
-@login_required
-def books_detail_view(request, id=None):
-    obj = get_object_or_404(UserListBooks, id=id, user=request.user)
-    context = {
-        "book": obj
-    }
-    return render(request, "books/detail.html", context)
+class BookDetailView(LoginRequiredMixin, DetailView):
+    model = UserListBooks
+    context_object_name = 'book'
 
 
 class BookCreateView(LoginRequiredMixin, CreateView):
@@ -37,17 +24,16 @@ class BookCreateView(LoginRequiredMixin, CreateView):
     fields = ['user', 'title', 'description', 'status']
     success_url = reverse_lazy('list_of_read_books:list')
 
-# def books_add_view(request, id=None):
-#     form = BooksAuthorsForm(request.POST or None)
-#     context = {
-#         "form": form
-#     }
-#     if form.is_valid():
-#         obj = form.save(commit=False)
-#         obj.user = request.user
-#         obj.save()
-#         return redirect(obj.get_absolute_url())
-#     return render(request, "books/create-update.html", context)
+
+class BookUpdateView(LoginRequiredMixin, UpdateView):
+    model = UserListBooks
+    fields = ['title', 'description', 'status']
+    success_url = reverse_lazy('list_of_read_books:list')
+
+
+class BookDeleteView(LoginRequiredMixin, DeleteView):
+    model = UserListBooks
+    success_url = reverse_lazy ('list_of_read_books:list')
 
 
 # @login_required
