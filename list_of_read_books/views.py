@@ -21,8 +21,12 @@ class BookDetailView(LoginRequiredMixin, DetailView):
 
 class BookCreateView(LoginRequiredMixin, CreateView):
     model = UserListBooks
-    fields = ['user', 'title', 'description', 'status']
+    fields = ['title', 'description', 'status']
     success_url = reverse_lazy('list_of_read_books:list')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class BookUpdateView(LoginRequiredMixin, UpdateView):

@@ -1,5 +1,5 @@
 from django.db import models
-from django.conf import settings
+from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.postgres.fields import ArrayField
 
@@ -16,7 +16,7 @@ class ListAuthors(models.Model):
 
 
 class UserListBooks(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
     author_id = models.ForeignKey(ListAuthors, on_delete=models.PROTECT, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
